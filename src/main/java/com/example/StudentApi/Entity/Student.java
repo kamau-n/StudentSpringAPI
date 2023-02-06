@@ -1,11 +1,21 @@
-package com.example.StudentApi.Student;
+package com.example.StudentApi.Entity;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
-@Entity
-@Table
+@Entity(name = "Student")
+@Table (
+        name = "student",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "student_email",
+                        columnNames = "email"
+                )
+        }
+
+)
 public class Student {
     @Id
     @SequenceGenerator(
@@ -18,11 +28,48 @@ public class Student {
             generator = "student_sequence"
 
     )
+
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Integer id;
+    @Column(
+            name = "name",
+            updatable = true,
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String name;
+    @Column(
+            name = "email",
+            updatable = true,
+            nullable = false,
+            columnDefinition = "TEXT"
+
+
+    )
     private String email;
+    @Column(
+            name = "age",
+            updatable = true,
+            nullable = false
+
+    )
 
     private  Integer age;
+
+
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "student_id",
+            referencedColumnName = "id"
+    )
+
+    private List<Registered> registered;
+
 
     public Student() {
 
@@ -42,6 +89,13 @@ public class Student {
 
         this.age = age;
     }
+
+
+
+
+
+
+
 
     public Integer getId() {
         return id;
