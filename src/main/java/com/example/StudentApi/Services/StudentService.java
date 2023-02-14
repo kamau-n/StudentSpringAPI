@@ -103,6 +103,11 @@ public class StudentService {
 
 
     }
+
+    public String getHome() {
+
+        return  "You have successfully accessed the home routes";
+    }
 }
 
 

@@ -26,15 +26,12 @@ public class  StudentController {
 
     @PostMapping
     public String addStudent(@RequestBody  Student student) {
-        
-         return  (studentService.addStudent(student));
-
+         return studentService.addStudent(student);
     }
 
     @DeleteMapping(path ="{studentId}" )
     public void deleteStudent( @PathVariable("studentId") Integer studentId) {
         studentService.deleteStudent(studentId);
-
     }
 
     @GetMapping(path = "{studentId}")
